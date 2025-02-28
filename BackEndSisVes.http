@@ -1,0 +1,6 @@
+@BackEndSisVes_HostAddress = http://localhost:5287
+
+GET {{BackEndSisVes_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
