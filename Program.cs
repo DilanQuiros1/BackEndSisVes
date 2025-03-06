@@ -1,5 +1,7 @@
 using BackEndSisVes.BackEndSisVesBA;
-using BackEndSisVes.BackEndSisVesBO;
+using BackEndSisVes.BackEndSisVesBO.OrderServiceClients;
+using BackEndSisVes.BackEndSisVesBO.OrderServiceDirecciones;
+using BackEndSisVes.BackEndSisVesBO.OrderServiceLogin;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,10 +9,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddSingleton(new DataContext(connectionString!));
-builder.Services.AddScoped<OrderService>();
+builder.Services.AddSingleton<DataContext>(provider => new DataContext(connectionString));
 
-builder.Services.AddControllers();
+builder.Services.AddScoped<OrderServiceClients>();
+builder.Services.AddScoped<OrderServiceCanton>();
+builder.Services.AddScoped<OrderServiceDistrito>();
+builder.Services.AddScoped<OrderServiceProvincia>();
+builder.Services.AddScoped<OrderServiceDirections>();
+builder.Services.AddScoped<OrderServiceLogin>();
+
+
+//builder.Services.AddControllers();
+builder.Services.AddControllersWithViews();//added
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -25,8 +35,16 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+//added:
+app.UseStaticFiles();
+app.UseRouting();
+
 
 app.UseAuthorization();
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Login}/{action=LoginPage}/{id?}"
+);
 
 app.MapControllers();
 
