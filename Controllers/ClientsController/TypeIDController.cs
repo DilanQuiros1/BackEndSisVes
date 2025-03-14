@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BackEndSisVes.Controllers.ClientsController
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class TypeIDController : Controller
     {
 

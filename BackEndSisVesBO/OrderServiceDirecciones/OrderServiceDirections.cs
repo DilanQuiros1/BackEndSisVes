@@ -20,10 +20,9 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceDirecciones
 
             var parameters = new Dictionary<string, object>
             {
-                { "@DIR_ID", direction.DIR_ID },
                 { "@CLI_ID", direction.CLI_ID },
                 { "@DIS_ID", direction.DIS_ID },
-                { "@SEN_ID", direction.SEN_ID },
+                { "@SEN_Senal", direction.SEN_Senal },
             };
 
             int rowsAffected = dataContext.ExecuteNonQuerySPs(StoreProcedure, parameters);
@@ -36,10 +35,9 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceDirecciones
 
             var parameters = new Dictionary<string, object>
             {
-                { "@DIR_ID", direction.DIR_ID },
                 { "@CLI_ID", direction.CLI_ID },
                 { "@DIS_ID", direction.DIS_ID },
-                { "@SEN_ID", direction.SEN_ID },
+                { "@SEN_Senal", direction.SEN_Senal },
             };
 
             int rowsAffected = dataContext.ExecuteNonQuerySPs(StoreProcedure, parameters);

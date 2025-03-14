@@ -2,6 +2,7 @@ using BackEndSisVes.BackEndSisVesBA;
 using BackEndSisVes.BackEndSisVesBO.OrderServiceClients;
 using BackEndSisVes.BackEndSisVesBO.OrderServiceDirecciones;
 using BackEndSisVes.BackEndSisVesBO.OrderServiceLogin;
+using BackEndSisVes.BackEndSisVesBO.OrderServiceVehicles;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,10 @@ builder.Services.AddScoped<OrderServiceDistrito>();
 builder.Services.AddScoped<OrderServiceProvincia>();
 builder.Services.AddScoped<OrderServiceDirections>();
 builder.Services.AddScoped<OrderServiceLogin>();
+builder.Services.AddScoped<OrderServiceTypeFuel>();
+builder.Services.AddScoped<OrderServiceBrandVehicle>();
+builder.Services.AddScoped<OrderServiceModelBrandVehicle>();
+builder.Services.AddScoped<OrderServiceEngineVehicle>();
 
 
 //builder.Services.AddControllers();
