@@ -21,11 +21,11 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceVehicles
             foreach (DataRow row in response.Rows)
             {
                 brandVehicle.Add(new BrandVehicleRequest
-                {
-                    MAR_ID = Convert.ToInt32(row["MAR_ID"]),
-                    MOD_ID = Convert.ToInt32(row["MOD_ID"]),
-                    MAR_Marca = row["MAR_Marca"].ToString()
-                }
+                    {
+                        MAR_ID = Convert.ToInt32(row["MAR_ID"]),
+                        MOD_ID = Convert.ToInt32(row["MOD_ID"]),
+                        MAR_Marca = row["MAR_Marca"].ToString()
+                    }
                 );
             }
             return brandVehicle;

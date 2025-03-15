@@ -22,6 +22,7 @@ builder.Services.AddScoped<OrderServiceTypeFuel>();
 builder.Services.AddScoped<OrderServiceBrandVehicle>();
 builder.Services.AddScoped<OrderServiceModelBrandVehicle>();
 builder.Services.AddScoped<OrderServiceEngineVehicle>();
+builder.Services.AddScoped<OrderServiceDimentionWheelVehicle>();
 
 
 //builder.Services.AddControllers();
