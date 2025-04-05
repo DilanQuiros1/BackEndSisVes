@@ -32,25 +32,7 @@ namespace BackEndSisVes.Controllers.DirectionsController
             }
         }
 
-        [HttpPost("InsertDistrito")]
-        public IActionResult InsertDistrito([FromBody] DistritoRequest distrito) 
-        {
-            bool request = orderServiceDistrito.InsertDistrito(distrito);
-            if (request)
-                return Ok("Distrito Insertado");
-            return BadRequest(new { message = "Error al insertar Distrito" });
-
-        }
-
-        [HttpPut("UpdateDistrito")]
-        public IActionResult updateDistrito([FromBody] DistritoRequest distrito)
-        {
-            bool request = orderServiceDistrito.updateDistrito(distrito);
-            if (request)
-                return Ok("Distrito Editado de forma correcta");
-            return BadRequest(new { message = "Error al editar Distrito" });
-
-        }
+       
 
     }
 }

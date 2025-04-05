@@ -14,12 +14,6 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceDirecciones
                 _dbContext = dataContext;
             }
 
-        public string getSession()
-        {
-            string query = "SELECT SESSION_CONTEXT(N'UsuarioID') AS UsuarioEnSesion;";
-            string result = _dbContext.GetUserSession(query);
-            return result;
-        }
 
         public List<CantonRequest> GetCantones()
         {
@@ -41,34 +35,7 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceDirecciones
             return cantones;
         }
 
-        public bool InsertCanton(CantonRequest canton)
-        {
-            string StoreProcedure = "InsertarCanton";
-
-            var parameters = new Dictionary<string, object>
-            {
-                { "@CAN_ID", canton.CAN_ID },
-                { "@PRO_ID", canton.PRO_ID },
-                { "@CAN_Canton", canton.CAN_Canton }
-            };
-
-            int rowsAffected = _dbContext.ExecuteNonQuerySPs(StoreProcedure, parameters);
-            return rowsAffected > 0;
-        }
-
-        public bool UpdateCanton(CantonRequest canton)
-        {
-            string StoreProcedure = "ActualizarCanton";
-            var parameters = new Dictionary<string, object>
-            {
-                { "@CAN_ID", canton.CAN_ID },
-                { "@PRO_ID", canton.PRO_ID },
-                { "@CAN_Canton", canton.CAN_Canton }
-             };
-
-            int rowsAffected = _dbContext.ExecuteNonQuerySPs(StoreProcedure, parameters);
-            return rowsAffected > 0;
-        }
+       
 
  
 

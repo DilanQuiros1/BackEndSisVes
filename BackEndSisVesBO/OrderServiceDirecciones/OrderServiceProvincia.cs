@@ -34,35 +34,7 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceDirecciones
 
         }
 
-        public bool InsertProvince(ProvinciaRequest provincia)
-        {
-            string StoreProcedure = "InsertarProvincia";
-
-            var parameters = new Dictionary<string, object>
-            {
-                { "@PRO_ID", provincia.PRO_ID },
-                { "@PRO_Nombre", provincia.PRO_Nombre },
-    
-            };
-
-            int rowsAffected = dataContext.ExecuteNonQuerySPs(StoreProcedure, parameters);
-            return rowsAffected > 0;
-        }
-
-        public bool updateProvince(ProvinciaRequest provincia)//REVISAR
-        {
-            string StoreProcedure = "ActualizarProvincia";
-
-            var parameters = new Dictionary<string, object>
-            {
-                { "@PRO_ID", provincia.PRO_ID },
-                { "@PRO_Nombre", provincia.PRO_Nombre },
-            
-            };
-
-            int rowsAffected = dataContext.ExecuteNonQuerySPs(StoreProcedure, parameters);
-            return rowsAffected > 0;
-        }
+       
 
     }
 }

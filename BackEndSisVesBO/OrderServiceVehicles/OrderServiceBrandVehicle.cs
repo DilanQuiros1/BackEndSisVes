@@ -36,7 +36,6 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceVehicles
             string procedure = "InsertarMarca"; 
             var parameters = new Dictionary<string, object>()
             {
-                {"@MAR_ID",brandVehicle.MAR_ID },
                 {"@MOD_ID",brandVehicle.MOD_ID },
                 {"@MAR_Marca",brandVehicle.MAR_Marca }
             };
@@ -48,11 +47,12 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceVehicles
         public bool UpdateBrandVehicle(BrandVehicleRequest brandVehicle)
         {
             string procedure = "ActualizarMarca";
-            var parameters = new Dictionary<string, object>()
+            var parameters = new Dictionary<string, object?>
             {
-                {"@MAR_ID",brandVehicle.MAR_ID },
-                {"@MOD_ID",brandVehicle.MOD_ID },
-                {"@MAR_Marca",brandVehicle.MAR_Marca }
+                {"@MAR_ID", brandVehicle.MAR_ID }, 
+                {"@MOD_ID", brandVehicle.MOD_ID ?? (object)DBNull.Value },
+                {"@MAR_Marca", string.IsNullOrWhiteSpace(brandVehicle.MAR_Marca) ? (object)DBNull.Value : brandVehicle.MAR_Marca },
+                {"@MAR_Estado", brandVehicle.MAR_Estado ?? (object)DBNull.Value }
             };
 
             int result = _context.ExecuteNonQuerySPs(procedure, parameters);

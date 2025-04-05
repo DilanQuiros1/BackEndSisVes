@@ -45,11 +45,15 @@ namespace BackEndSisVes.Controllers.ClientsController
             {
                 List<TypeIDRequest> types = new List<TypeIDRequest>();
                 types = orderServiceTypeID.GetTypeID();
-                if(types == null || types.Count > 0)
+                if(types == null || types.Count < 0)
                 {
                     return NotFound();
                 }
-                return Ok(types);
+                else
+                {
+                    return Ok(types);
+                }
+               
             }
             catch(Exception ex)
             {

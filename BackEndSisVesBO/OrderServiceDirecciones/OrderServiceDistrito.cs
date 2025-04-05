@@ -35,35 +35,7 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceDirecciones
 
         }
 
-        public bool InsertDistrito(DistritoRequest distrito)
-        {
-            string StoreProcedure = "InsertarDistrito";
-
-            var parameters = new Dictionary<string, object>
-            {
-                { "@DIS_ID", distrito.DIS_ID },
-                { "@DIS_Distrito", distrito.DIS_Distrito },
-                { "@CAN_ID", distrito.CAN_ID },
-            };
-
-            int rowsAffected = dataContext.ExecuteNonQuerySPs(StoreProcedure, parameters);
-            return rowsAffected > 0;
-        }
-        
-        public bool updateDistrito(DistritoRequest distrito)
-        {
-            string StoreProcedure = "ActualizarDistrito";
-
-            var parameters = new Dictionary<string, object>
-            {
-                { "@DIS_ID", distrito.DIS_ID },
-                { "@DIS_Distrito", distrito.DIS_Distrito },
-                 { "@CAN_ID", distrito.CAN_ID },
-            };
-
-            int rowsAffected = dataContext.ExecuteNonQuerySPs(StoreProcedure, parameters);
-            return rowsAffected > 0;
-        }
+      
 
 
     }

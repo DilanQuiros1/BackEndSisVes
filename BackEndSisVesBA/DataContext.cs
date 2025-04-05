@@ -68,7 +68,7 @@ namespace BackEndSisVes.BackEndSisVesBA
            
                 using (SqlCommand command = new SqlCommand(query, _connection))
                 {
-                  
+
                     using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                     {
                         DataTable result = new DataTable();
@@ -81,7 +81,9 @@ namespace BackEndSisVes.BackEndSisVesBA
 
         public int ExecuteNonQuerySPs(string storedProcedure, Dictionary<string, object> parameters = null)
         {
-           
+
+            try
+            {
                 using (SqlCommand command = new SqlCommand(storedProcedure, _connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
@@ -91,9 +93,35 @@ namespace BackEndSisVes.BackEndSisVesBA
                         command.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
                     }
 
-                   
-                    return command.ExecuteNonQuery(); // Returns the number of affected rows
+                    using (SqlTransaction transaction = _connection.BeginTransaction())
+                    {
+                        command.Transaction = transaction;
+
+                        /*if (parameters != null)
+                        {
+                            foreach (var param in parameters)
+                            {
+                                command.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
+                            }
+                        }*/
+
+                        int rowsAffected = command.ExecuteNonQuery();
+                        transaction.Commit();
+                        return rowsAffected;
+                    }
                 }
+            }
+            catch(SqlException ex)
+            {
+                Console.WriteLine($"SQL Exception: {ex.Message}");
+                throw;
+               
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"General Exception: {ex.Message}");
+                throw;
+            }
             
         }
 

@@ -17,15 +17,18 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceClients
         public bool InsertTypeID(TypeIDRequest typeID)
         {
             string procedure = "InsertarTipoIdentificacion";
-
-            int affectedRows = dataContext.ExecuteNonQuerySPs(procedure);
+            var parameters = new Dictionary<string, object>()
+            {
+                {"@TIPIDE_Tipo_identificacion", typeID.TIPIDE_Tipo_identificacion }
+            };
+            int affectedRows = dataContext.ExecuteNonQuerySPs(procedure, parameters);
             return affectedRows > 0;
 
         }
 
         public List<TypeIDRequest> GetTypeID()
         {
-            string view = "vw_SeleccionarTipoIdentificacion";
+            string view = "SELECT * FROM vw_SeleccionarTipoIdentificacion";
             List<TypeIDRequest> typeIDRequests = new List<TypeIDRequest>();
 
             DataTable types = dataContext.ExecuteQueryViews(view);

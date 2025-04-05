@@ -35,38 +35,7 @@ namespace BackEndSisVes.Controllers.DirectionsController
             }
         }
 
-        [HttpPost("InsertCanton")]
-        public IActionResult InsertCanton([FromBody] CantonRequest canton)
-        {
-            bool isInserted = _orderServiceCanton.InsertCanton(canton);
-            if (isInserted)
-                return Ok(new { message = "Canton inserted successfully" });
-            return BadRequest(new { message = "Failed to insert canton" });
-        }
-
-        [HttpPut("UpdateCanton")]
-        public IActionResult UpdateCanton([FromBody] CantonRequest canton)
-        {
-            bool isUpdated = _orderServiceCanton.UpdateCanton(canton);
-            if (isUpdated)
-                return Ok(new { message = "Canton updated successfully" });
-            return BadRequest(new { message = "Failed to update canton" });
-        }
-
-        [HttpGet("GetSession")]
-        public IActionResult getSessionUser()
-        {
-            string ID = _orderServiceCanton.getSession();
-            if(ID != null)
-            {
-                return Ok(new { ID });
-            }
-            else
-            {
-                return NotFound();
-            }
-           
-        }
+       
 
     }
 }

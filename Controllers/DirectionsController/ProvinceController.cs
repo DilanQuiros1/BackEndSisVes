@@ -34,22 +34,5 @@ namespace BackEndSisVes.Controllers.DirectionsController
             }
         }
 
-        [HttpPost("InsertProvince")]
-        public IActionResult InsertCanton([FromBody] ProvinciaRequest province)
-        {
-            bool isInserted = orderServiceProvincia.InsertProvince(province);
-            if (isInserted)
-                return Ok(new { message = "Province inserted successfully" });
-            return BadRequest(new { message = "Failed to insert canton" });
-        }
-
-        [HttpPut("UpdateProvince")]
-        public IActionResult UpdateCanton([FromBody] ProvinciaRequest province)
-        {
-            bool isUpdated = orderServiceProvincia.updateProvince(province);
-            if (isUpdated)
-                return Ok(new { message = "Province updated successfully" });
-            return BadRequest(new { message = "Failed to update canton" });
-        }
     }
 }

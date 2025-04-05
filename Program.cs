@@ -2,6 +2,7 @@ using BackEndSisVes.BackEndSisVesBA;
 using BackEndSisVes.BackEndSisVesBO.OrderServiceClients;
 using BackEndSisVes.BackEndSisVesBO.OrderServiceDirecciones;
 using BackEndSisVes.BackEndSisVesBO.OrderServiceLogin;
+using BackEndSisVes.BackEndSisVesBO.OrderServiceSales;
 using BackEndSisVes.BackEndSisVesBO.OrderServiceVehicles;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,19 +11,33 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
+
 builder.Services.AddSingleton<DataContext>(provider => new DataContext(connectionString));
 
 builder.Services.AddScoped<OrderServiceClients>();
+builder.Services.AddScoped<OrderServiceTypeContacs>();
+builder.Services.AddScoped<OrderServiceContacts>();
 builder.Services.AddScoped<OrderServiceCanton>();
 builder.Services.AddScoped<OrderServiceDistrito>();
 builder.Services.AddScoped<OrderServiceProvincia>();
 builder.Services.AddScoped<OrderServiceDirections>();
 builder.Services.AddScoped<OrderServiceLogin>();
+builder.Services.AddScoped<OrderServiceTypeID>();
+
 builder.Services.AddScoped<OrderServiceTypeFuel>();
 builder.Services.AddScoped<OrderServiceBrandVehicle>();
 builder.Services.AddScoped<OrderServiceModelBrandVehicle>();
+builder.Services.AddScoped<OrderServicePrestacionesVehicle>();
 builder.Services.AddScoped<OrderServiceEngineVehicle>();
 builder.Services.AddScoped<OrderServiceDimentionWheelVehicle>();
+builder.Services.AddScoped<OrderServiceBrandWheelVehicles>();
+builder.Services.AddScoped<OrderServiceWheelVehicles>();
+builder.Services.AddScoped<OrderServiceTypeWheelsVehicles>();
+builder.Services.AddScoped<OrderServiceBill>();
+builder.Services.AddScoped<OrderServiceVehicle>();
+builder.Services.AddScoped<OrderServiceSales>();
+
+
 
 
 //builder.Services.AddControllers();

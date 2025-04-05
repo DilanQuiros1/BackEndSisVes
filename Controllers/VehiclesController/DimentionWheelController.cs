@@ -15,8 +15,29 @@ namespace BackEndSisVes.Controllers.VehiclesController
             this.orderServiceDimentionWheelVehicle = orderServiceDimentionWheelVehicle;
         }
 
+        [HttpGet("GetDimentionWheel")]
+        public IActionResult GetDimentionWheel()
+        {
+            try
+            {
+                List < DimentionWheelsRequest> response= orderServiceDimentionWheelVehicle.GetDimentionWheel();
+                if(response.Count > 0 && response != null)
+                {
+                    return Ok(response);
+                }
+                else
+                {
+                    return Json(new { message = "There aren't dimentions" });
+                }
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("InsertDimentionWheel")]
-        public IActionResult InsertDimentionWheel(DimentionWheelsRequest dimention)
+        public IActionResult InsertDimentionWheel([FromBody] DimentionWheelsRequest dimention)
         {
             try
             {
@@ -24,10 +45,10 @@ namespace BackEndSisVes.Controllers.VehiclesController
                 bool result = orderServiceDimentionWheelVehicle.InsertDimentionWheel(dimention);
                 if(result)
                 {
-                    return Json(new { message = "Dimention inserted successfully" });
+                    return Json(new { message = "Dimention inserted successfully "+result });
                 }else
                 {
-                    return BadRequest(new { message = "Dimention error Inserted" });
+                    return Json(new { message = "Dimention error inserted "+result });
                 }
 
             }
