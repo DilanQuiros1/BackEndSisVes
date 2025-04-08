@@ -29,6 +29,7 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceClients
             {
                 var client = new ClientesRequest
                 {
+                    CLI_ID = Convert.ToInt32(row["CLI_ID"]),
                     CLI_Identificacion = row["CLI_Identificacion"].ToString(),
                     CLI_Nombre = row["CLI_Nombre"].ToString(),
                     CLI_Apellidos = row["CLI_Apellidos"].ToString()
@@ -118,6 +119,44 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceClients
 
             int affectedRows = _dbContext.ExecuteNonQuerySPs(procedure, parameter);
             
+            return affectedRows > 0;
+
+        } 
+        
+        public bool UpdateClient(UpdateClientesRequest clients)
+        {
+            string procedure = "ActualizarCliente";
+
+            var parameter = new Dictionary<string, object>()
+            {
+                {"@CLI_ID", clients.CLI_ID},
+                {"@TIPIDE_ID", clients.TIPIDE_ID ?? (object)DBNull.Value},
+                {"@CLI_Identificacion", clients.CLI_Identificacion ??(object) DBNull.Value},
+                {"@CLI_Nombre", clients.CLI_Nombre ??(object) DBNull.Value},
+                {"@CLI_Apellidos", clients.CLI_Apellidos ?? (object)DBNull.Value},
+
+            };
+
+            int affectedRows = _dbContext.ExecuteNonQuerySPs(procedure, parameter);
+            
+            return affectedRows > 0;
+
+        }
+
+        public bool deactivateClient(int CLI_Identificacion)
+        {
+            string procedure = "SP_DesactivarCliente";
+
+           
+
+            var parameter = new Dictionary<string, object>()
+            {
+                {"@CLI_Identificacion", CLI_Identificacion},
+
+            };
+
+            int affectedRows = _dbContext.ExecuteNonQuerySPs(procedure, parameter);
+
             return affectedRows > 0;
 
         }

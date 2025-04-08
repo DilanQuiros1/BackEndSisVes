@@ -12,12 +12,7 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceSales
         {
             _dbContext = dataContext;
         }
-        public string getSession()
-        {
-            string query = "SELECT SESSION_CONTEXT(N'UsuarioID') AS UsuarioEnSesion;";
-            string result = _dbContext.GetUserSession(query);
-            return result;
-        }
+
         public List<BillRequest> GetAllBills()
         {
             List<BillRequest> bills = new List<BillRequest>();
@@ -32,14 +27,15 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceSales
                     FAC_ID = Convert.ToInt32(row["FAC_ID"]),
                     VEN_ID = Convert.ToInt32(row["VEN_ID"]),
                     CRE_ID = Convert.ToInt32(row["CRE_ID"]),
-                    FAC_Fecha_Compra = row["FAC_Fecha_Compra"].ToString()
+                    FAC_Fecha_Compra = row["FAC_Fecha_Compra"].ToString(),
+                    CLI_ID = Convert.ToInt32(row["CLIE_ID"]),
                 });
             }
 
             return bills;
         }
 
-        public bool InsertBill(BillRequest bill)
+        public bool InsertBill(InsertBillRequest bill)
         {
             string StoreProcedure = "InsertSisVeS_FACTURACION";
 
@@ -56,7 +52,7 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceSales
 
         public bool UpdateBill(BillRequest bill)
         {
-            string StoreProcedure = "UpdateSisVeS_FACTURACION";
+            string StoreProcedure = "Actualizar_SisVeS_FACTURACION";
             var parameters = new Dictionary<string, object>
             {
                 { "@FAC_ID", bill.FAC_ID },

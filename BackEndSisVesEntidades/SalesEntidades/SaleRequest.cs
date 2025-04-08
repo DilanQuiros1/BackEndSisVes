@@ -33,4 +33,10 @@
         public int DETVEN_Descuento_Venta { get; set; }
         public decimal DETVEN_Impuesto { get; set; }
     }
+    
+    public class TypeOfPaymentRequest
+    {
+        public int FORPAG_ID { get; set; }
+        public string FORPAG_Forma_Pago { get; set; }
+    }
 }

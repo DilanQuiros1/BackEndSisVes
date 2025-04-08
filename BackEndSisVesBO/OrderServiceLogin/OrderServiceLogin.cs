@@ -18,11 +18,12 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceLogin
         {
             LoginRequest loggedInUser = null;
             
-            string query = "SELECT UsuarioID, NombreUsuario FROM Usuarios WHERE UsuarioID = @UsuarioID AND NombreUsuario = @NombreUsuario;";
+            string query = "SELECT UsuarioID, USU_Password FROM Usuarios WHERE UsuarioID = @UsuarioID AND USU_Password = @USU_Password;";
             var parameters = new Dictionary<string, object>()
             {
-                { "@NombreUsuario", user.NombreUsuario },
-                { "@UsuarioID", user.UsuarioID }
+                 { "@UsuarioID", user.UsuarioID },
+                { "@USU_Password", user.USU_Password },
+               
             };
 
             DataTable result = _dataContext.GetUserLogin(query, parameters);
@@ -33,7 +34,7 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceLogin
                 loggedInUser = new LoginRequest
                 {
                     UsuarioID = Convert.ToInt32(row["UsuarioID"]),
-                    NombreUsuario = row["NombreUsuario"].ToString(),
+                    USU_Password = row["USU_Password"].ToString(),
                 };
 
          

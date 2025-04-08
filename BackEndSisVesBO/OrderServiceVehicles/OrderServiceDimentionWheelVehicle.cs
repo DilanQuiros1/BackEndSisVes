@@ -44,6 +44,20 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceVehicles
             int result = dataContext.ExecuteNonQuerySPs(procedure, parameters);
             return result > 0;
         }
+        
+        public bool UodateDimentionWheel(DimentionWheelsRequest dimention)
+        {
+            string procedure = "ActualizarRuedasDimensiones";
+            var parameters = new Dictionary<string, object>()
+            {
+                {"@RUEDIM_ID",dimention.RUEDIM_ID },
+                {"@RUE_DIM_TRAS",dimention.RUE_DIM_TRAS ?? (object)DBNull.Value},
+                {"@RUE_DIM_DEL",dimention.RUE_DIM_DEL ??(object) DBNull.Value },
+            };
+
+            int result = dataContext.ExecuteNonQuerySPs(procedure, parameters);
+            return result > 0;
+        }
 
     }
 }

@@ -161,6 +161,54 @@ namespace BackEndSisVes.Controllers.ClientsController
                 return StatusCode(500, $"Error interno del servidor: {ex.Message}");
             }
         }
+        
+        [HttpPut("UpdateClient")]
+        public IActionResult UpdateClient([FromBody] UpdateClientesRequest clients)
+        {
+            try
+            {
+                bool result = _orderService.UpdateClient(clients);
+                if(result)
+                {
+                    return Ok(new { message = "Client inserted successfully" });
+                }
+                else
+                {
+                    return BadRequest(new { message = "Failed to insert Client" });
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error interno del servidor: {ex.Message}");
+            }
+        }
+        
+        [HttpPut("deactivateClient")]
+        public IActionResult deactivateClient(int CLI_Identificacion)
+        {
+            try
+            {
+                if(CLI_Identificacion <= 1)
+                {
+                    return BadRequest(new { message = "Enter a valid Identification" });
+                }
+                bool result = _orderService.deactivateClient(CLI_Identificacion);
+                if(result)
+                {
+                    return Ok(new { message = "Client deactivate successfully" });
+                }
+                else
+                {
+                    return BadRequest(new { message = "Failed to deactivate Client" });
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error interno del servidor: {ex.Message}");
+            }
+        }
 
  
 

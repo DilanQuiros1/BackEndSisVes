@@ -56,6 +56,28 @@ namespace BackEndSisVes.Controllers.VehiclesController
             {
                 return BadRequest(ex.Message);
             }
+        } 
+        
+        [HttpPut("UpdateDimentionWheel")]
+        public IActionResult UpdateDimentionWheel([FromBody] DimentionWheelsRequest dimention)
+        {
+            try
+            {
+
+                bool result = orderServiceDimentionWheelVehicle.UodateDimentionWheel(dimention);
+                if(result)
+                {
+                    return Json(new { message = "Dimention inserted successfully "+result });
+                }else
+                {
+                    return Json(new { message = "Dimention error inserted "+result });
+                }
+
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
     }

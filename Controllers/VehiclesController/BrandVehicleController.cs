@@ -37,7 +37,7 @@ namespace BackEndSisVes.Controllers.VehiclesController
         }
 
         [HttpPost("InsertBrandVehicles")]
-        public IActionResult InsertBrandVehicles([FromBody] BrandVehicleRequest brand)
+        public IActionResult InsertBrandVehicles([FromBody] InsertBrandVehicleRequest brand)
         {
             try
             {

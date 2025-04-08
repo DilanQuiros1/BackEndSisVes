@@ -1,5 +1,6 @@
 using BackEndSisVes.BackEndSisVesBA;
 using BackEndSisVes.BackEndSisVesBO.OrderServiceClients;
+using BackEndSisVes.BackEndSisVesBO.OrderServiceCredits;
 using BackEndSisVes.BackEndSisVesBO.OrderServiceDirecciones;
 using BackEndSisVes.BackEndSisVesBO.OrderServiceLogin;
 using BackEndSisVes.BackEndSisVesBO.OrderServiceSales;
@@ -35,7 +36,9 @@ builder.Services.AddScoped<OrderServiceWheelVehicles>();
 builder.Services.AddScoped<OrderServiceTypeWheelsVehicles>();
 builder.Services.AddScoped<OrderServiceBill>();
 builder.Services.AddScoped<OrderServiceVehicle>();
+builder.Services.AddScoped<OrderServiceRodajeVehicle>();
 builder.Services.AddScoped<OrderServiceSales>();
+builder.Services.AddScoped<OrderServiceCredits>();
 
 
 

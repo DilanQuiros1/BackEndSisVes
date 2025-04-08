@@ -13,10 +13,10 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceVehicles
             this.dataContext = dataContext;
         }
 
-        public List<(VehicleRequest, RodajeVehicleRequest, TypeRodaje, TypeFuelRequest, BrandVehicleRequest, ModelBrandVehicleRequest,
+        public List<(VehicleRequest, RodajeVehRequest, TypeRodaje, TypeFuelRequest, BrandVehicleRequest, ModelBrandVehicleRequest,
        EngineVehicleRequest, WeighVehicleRequest)> GetInfoVehicles(string VEH_Numero_Placa)
         {
-            var vehicles = new List<(VehicleRequest, RodajeVehicleRequest, TypeRodaje, TypeFuelRequest, BrandVehicleRequest, ModelBrandVehicleRequest,
+            var vehicles = new List<(VehicleRequest, RodajeVehRequest, TypeRodaje, TypeFuelRequest, BrandVehicleRequest, ModelBrandVehicleRequest,
             EngineVehicleRequest, WeighVehicleRequest)>();
             string view;
             if (VEH_Numero_Placa == null)
@@ -46,7 +46,7 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceVehicles
                         VEH_Precio_USD = row["VEH_Precio_USD"] != DBNull.Value ? Convert.ToInt32(row["VEH_Precio_USD"]) : 0,
                     };
 
-                    var rodaje = new RodajeVehicleRequest
+                    var rodaje = new RodajeVehRequest
                     {
                         ROD_Rodaje = row["ROD_Rodaje"] != DBNull.Value ? Convert.ToInt32(row["ROD_Rodaje"]) : 0
                     };
@@ -102,6 +102,49 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceVehicles
 
             return vehicles;
         }
+        
+        
+        public List<CatalogoRequest> GetCatalogoVehicles(string VEH_Numero_Placa)
+        {
+            List<CatalogoRequest> catalogo = new List<CatalogoRequest> ();
+            string view;
+            if (VEH_Numero_Placa == null)
+            {
+                view = "SELECT * FROM vw_VehicleCatalogo;";
+            }
+            else
+            {
+                view = $"SELECT * FROM vw_VehicleCatalogo WHERE VEH_Numero_Placa = ${VEH_Numero_Placa};";
+            }
+            
+
+            try
+            {
+                DataTable response = dataContext.ExecuteQueryViews(view);
+
+                foreach (DataRow row in response.Rows)
+                {
+                    catalogo.Add(new CatalogoRequest
+                    {
+                        VEH_ID = Convert.ToInt32(row["VEH_ID"]),
+                        VEH_Img_Miniatura = row["VEH_Img_Miniatura"]?.ToString() ?? "",
+                        VEH_Numero_Placa = row["VEH_Numero_Placa"]?.ToString() ?? "",
+                        VEH_Precio_USD = row["VEH_Precio_USD"] != DBNull.Value ? Convert.ToInt32(row["VEH_Precio_USD"]) : 0,
+                        MAR_Marca = row["MAR_Marca"]?.ToString() ?? "",
+                        MOD_Modelo = row["MOD_Modelo"]?.ToString() ?? "",
+                    });
+
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejo de errores: Registra en logs o lanza una excepción
+                Console.WriteLine($"Error en GetInfoVehicles: {ex.Message}");
+            }
+
+            return catalogo;
+        }
 
 
         public bool InsertVehicle(VehicleRequest vehicle)
@@ -140,6 +183,59 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceVehicles
                 return false;
             }
         }
+        
+        public bool UpdateVehicle(UpdateVehicleRequest vehicle)
+        {
+            try
+            {
+
+              
+                string procedure = "Actualizar_SisVeS_VEHICULOS";
+                var parameter = new Dictionary<string, object>()
+                {
+                    {"@TIPCOM_ID",vehicle.VEH_ID },
+                    {"@TIPCOM_ID",vehicle.TIPCOM_ID ??(object) DBNull.Value },
+                    {"@MAR_ID",vehicle.MAR_ID ?? (object)DBNull.Value},
+                    {"@MOT_ID",vehicle.MOT_ID ?? (object)DBNull.Value},
+                    {"@PESVEH_ID",vehicle.PESVEH_ID ?? (object)DBNull.Value},
+                    {"@VEH_Anio",vehicle.VEH_Anio ?? (object)DBNull.Value},
+                    {"@VEH_Img_Miniatura",vehicle.VEH_Img_Miniatura ?? (object)DBNull.Value},
+                    {"@VEH_Numero_Placa",vehicle.VEH_Numero_Placa ?? (object)DBNull.Value},
+                    {"@VEH_Numero_VIN",vehicle.VEH_Numero_VIN ?? (object)DBNull.Value},
+                    {"@VEH_Color",vehicle.VEH_Color ?? (object)DBNull.Value},
+                    {"@VEH_Observaciones",vehicle.VEH_Observaciones ?? (object)DBNull.Value},
+                    {"@VEH_Precio_USD",vehicle.VEH_Precio_USD ?? (object)DBNull.Value}
+                };
+                int response = dataContext.ExecuteNonQuerySPs(procedure, parameter);
+
+                return response > 0;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool DeacticateVehicle(string VEH_Numero_Placa)
+        {
+            try
+            {
+
+                
+                string procedure = "SP_DesactivarVehiculo";
+                var parameter = new Dictionary<string, object>()
+                {
+                    {"@VEH_Numero_Placa", VEH_Numero_Placa }
+                };
+                int response = dataContext.ExecuteNonQuerySPs(procedure, parameter);
+
+                return response > 0;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
 
         public List<ImagesVehicleRequest> ImagesVehicle(int VEH_ID)
         {
@@ -156,6 +252,28 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceVehicles
             return images;
         }
 
+        public bool UpdateImagesVehicle(UpdateImagesVehicleRequest image)
+        {
+            try
+            {
+
+                
+                string procedure = "Actualizar_SisVeS_IMAGENES";
+                var parameter = new Dictionary<string, object>()
+                {
+                    {"@IMA_ID", image.IMA_ID },
+                    {"@VEH_ID", image.VEH_ID },
+                    {"@IMA_Imagen", image.IMA_Imagen }
+                };
+                int response = dataContext.ExecuteNonQuerySPs(procedure, parameter);
+
+                return response > 0;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
 
     }
 }

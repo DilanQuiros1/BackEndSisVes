@@ -3,7 +3,7 @@
     public class LoginRequest
     {
         public int UsuarioID { get; set; }
-        public string NombreUsuario { get; set; }
+        public string USU_Password { get; set; }
 
     }
 }

@@ -19,11 +19,11 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceVehicles
             string sp = "UpdateSisVeS_PRESTACIONES";
             var parameters = new Dictionary<string, object>
             {
-               
-                {"@PRES_Aceleracion", prestaciones.PRES_Aceleracion},
-                {"@PRES_Velocidad", prestaciones.PRES_Velocidad},
-                {"@VEH_ID", prestaciones.VEH_ID},
 
+                 {"@VEH_ID", prestaciones.VEH_ID},
+                 {"@PRES_Velocidad", prestaciones.PRES_Velocidad ?? (object)DBNull.Value},
+                 {"@PRES_Aceleracion", prestaciones.PRES_Aceleracion ?? (object)DBNull.Value}
+            
             };
             int result = dataContext.ExecuteNonQuerySPs(sp, parameters);
             return result > 0;

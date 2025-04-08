@@ -3,7 +3,7 @@ function login() {
 
     const usuarioData = {
         UsuarioID: document.getElementById("idUsuario").value,
-        NombreUsuario: document.getElementById("usuario").value,
+        USU_Password: document.getElementById("usuario").value,
     };
     const baseUrl = window.location.origin;
     fetch("Login/LogIn", {

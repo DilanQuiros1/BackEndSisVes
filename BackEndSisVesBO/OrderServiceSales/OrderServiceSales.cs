@@ -76,5 +76,23 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceSales
             return response >0;
         }
 
+        public List<TypeOfPaymentRequest> GetITypeOfPayments()
+        {
+            string view = "SELECT * FROM vwSeleccionarFormaPago";
+            List<TypeOfPaymentRequest> typeOfPaymentRequests = new List<TypeOfPaymentRequest>();
+
+            DataTable response = dataContext.ExecuteQueryViews(view);
+            
+            foreach(DataRow row in response.Rows)
+            {
+                typeOfPaymentRequests.Add(new TypeOfPaymentRequest
+                {
+                    FORPAG_ID = Convert.ToInt32(row["FORPAG_ID"]),
+                    FORPAG_Forma_Pago = row["FORPAG_Forma_Pago"].ToString(),
+                });
+            }
+            return typeOfPaymentRequests;
+        }
+
     }
 }

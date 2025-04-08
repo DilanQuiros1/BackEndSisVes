@@ -32,5 +32,23 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceVehicles
             return weighVehicleRequests;
         }
 
+        public bool UpdateWeighVehicle(WeighVehicleRequest weight)
+        {
+            string query = "ActualizarPesoVehiculo";
+
+            var parameters = new Dictionary<string, object>
+            {
+                {"@PESVEH_ID", weight.PESVEH_ID},
+                {"@PESVES_Peso_Total", weight.PESVES_Peso_Total},
+                {"@PESVES_Total_Admitible", weight.PESVES_Total_Admitible},
+                {"@PESVES_Admitible_Remolque", weight.PESVES_Admitible_Remolque},
+                {"@PESVES_Admitible_Ejes", weight.PESVES_Admitible_Ejes},
+            };
+
+            int result = dataContext.ExecuteNonQuerySPs(query, parameters);
+
+            return result > 0;
+        }
+
     }
 }

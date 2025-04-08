@@ -56,6 +56,27 @@ namespace BackEndSisVes.Controllers.SalesController
                 return BadRequest(ex.Message);
             }
         }
+        
+        [HttpGet("GetTypeOfPayments")]
+        public IActionResult GetTypeOfPayments()
+        {
+            try
+            {
+                List<TypeOfPaymentRequest> response = orderServiceSales.GetITypeOfPayments();
+                if(response == null || response.Count <1)
+                {
+                    return NotFound("There aren't types of payment yet");
+                }
+                else
+                {
+                    return Ok(response);
+                }
+            }
+            catch(Exception ex) 
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpGet("GetSalesWithDetailsByVENID")]
         public IActionResult GetSalesWithDetailsByVENID(string VEN_ID)

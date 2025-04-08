@@ -54,6 +54,27 @@ namespace BackEndSisVes.Controllers.VehiclesController
             {
                 return BadRequest(ex.Message);
             }
+        } 
+        
+        [HttpPut("UpdateBrandWheelVehicle")]
+        public IActionResult UpdateBrandWheelVehicle([FromBody] BrandWheelVehiclesRequest brand)
+        {
+            try
+            {
+                bool response = bradnwheels.UpdateBrandWheelVehicle( brand);
+                if(response)
+                {
+                    return Json(new { message = "Brand Wheel updated Successfully" });
+                }
+                else
+                {
+                    return Json(new { message = "Error updating Brand Wheel" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
     }

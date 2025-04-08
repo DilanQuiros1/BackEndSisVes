@@ -31,7 +31,7 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceVehicles
             return brandVehicle;
         }
 
-        public bool InsertBrandVehicle(BrandVehicleRequest brandVehicle)
+        public bool InsertBrandVehicle(InsertBrandVehicleRequest brandVehicle)
         {
             string procedure = "InsertarMarca"; 
             var parameters = new Dictionary<string, object>()
@@ -52,7 +52,7 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceVehicles
                 {"@MAR_ID", brandVehicle.MAR_ID }, 
                 {"@MOD_ID", brandVehicle.MOD_ID ?? (object)DBNull.Value },
                 {"@MAR_Marca", string.IsNullOrWhiteSpace(brandVehicle.MAR_Marca) ? (object)DBNull.Value : brandVehicle.MAR_Marca },
-                {"@MAR_Estado", brandVehicle.MAR_Estado ?? (object)DBNull.Value }
+                {"@MAR_Estado", brandVehicle.MAR_Estado ?? (object)DBNull.Value }   
             };
 
             int result = _context.ExecuteNonQuerySPs(procedure, parameters);

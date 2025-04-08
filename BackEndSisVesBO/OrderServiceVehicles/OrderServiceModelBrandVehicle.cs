@@ -50,6 +50,7 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceVehicles
             {
                 {"@MOD_ID",modelVehicle.MOD_ID },
                 {"@MOD_Modelo",modelVehicle.MOD_Modelo },
+                {"@MOD_Estado",modelVehicle.MOD_Estado },
             };
 
             int result = dataContext.ExecuteNonQuerySPs(procedure, parameters);

@@ -59,5 +59,29 @@ namespace BackEndSisVes.Controllers.VehiclesController
 
             
         }
+        
+        [HttpPut("UpdateTypeWheelsVehicle")]
+        public IActionResult UpdateTypeWheelsVehicle([FromBody] TypeWheelsVehicleRequest request) 
+        {
+            
+            try
+            {
+                bool response = orderServiceTypeWheelsVehicles.UpdateTypeWheelVehicle(request);
+                if(response)
+                {
+                    return Json(new {message = "Type Wheel updated Successfully"});
+                }
+                {
+                    return Json(new { message = "Error updating type of wheel" });
+                }
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+                
+
+            
+        }
     }
 }

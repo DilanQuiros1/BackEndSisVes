@@ -1,6 +1,7 @@
 ﻿using BackEndSisVes.BackEndSisVesBO.OrderServiceVehicles;
 using BackEndSisVes.BackEndSisVesEntidades.VehiclesEntidades;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace BackEndSisVes.Controllers.VehiclesController
 {
@@ -35,13 +36,105 @@ namespace BackEndSisVes.Controllers.VehiclesController
                 return BadRequest(ex);
             }
         }
+        
+        [HttpPost("UpdateVehicle")]
+        public IActionResult UpdateVehicle([FromBody] UpdateVehicleRequest vehicle)
+        {
+            try
+            {
+                bool response = orderServiceVehicle.UpdateVehicle(vehicle);
+                if(response)
+                {
+                    return Json(new {message = "Vehicle Updated Successfully"});
+                }
+                else
+                {
+                    return BadRequest("Error updating Vehicle");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpPut("DeactivateVehicle")]
+        public IActionResult DeactivateVehicle(string VEH_Numero_Placa)
+        {
+            try
+            {
+                bool response = orderServiceVehicle.DeacticateVehicle(VEH_Numero_Placa);
+                if (response)
+                {
+                    return Json(new { message = "Vehicle deactivated Successfully" });
+                }
+                else
+                {
+                    return BadRequest("Error deactivating Vehicle");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpPut("UpdateImageVehicle")]
+        public IActionResult UpdateImageVehicle(UpdateImagesVehicleRequest image)
+        {
+            try
+            {
+                bool response = orderServiceVehicle.UpdateImagesVehicle(image);
+                if (response)
+                {
+                    return Json(new { message = "Image Updated Successfully" });
+                }
+                else
+                {
+                    return BadRequest("Error Updating Image");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
 
         [HttpGet("GetImagesVehicle")]
         public IActionResult GetImagesVehicle(int VEH_ID)
         {
             try
             {
+                if (VEH_ID <1)
+                {
+                    return BadRequest("You must enter VEH_ID");
+                }
                 List<ImagesVehicleRequest> response = orderServiceVehicle.ImagesVehicle(VEH_ID);
+                if (response.Count > 0 && response != null)
+                {
+                    return Ok(response);
+                }
+                else
+                {
+                    return BadRequest("Error get images of Vehicle");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+        
+        [HttpGet("GetCatalogoAllVehicles")]
+        public IActionResult GetCatalogoAllVehicles(string VEH_Numero_Placa)
+        {
+            try
+            {
+                if(VEH_Numero_Placa.IsNullOrEmpty())
+                {
+                    return BadRequest("You must enter VEH_Numero_Placa");
+                }
+                List<CatalogoRequest> response = orderServiceVehicle.GetCatalogoVehicles(VEH_Numero_Placa);
                 if (response.Count > 0 && response != null)
                 {
                     return Ok(response);

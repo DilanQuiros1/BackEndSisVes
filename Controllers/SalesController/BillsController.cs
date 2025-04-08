@@ -38,7 +38,7 @@ namespace BackEndSisVes.Controllers.SalesController
         }
 
         [HttpPost("InsertBill")]
-        public IActionResult InsertBill([FromBody] BillRequest bill)
+        public IActionResult InsertBill([FromBody] InsertBillRequest bill)
         {
             try
             {

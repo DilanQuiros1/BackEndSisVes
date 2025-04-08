@@ -13,8 +13,6 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceClients
             _dbContext = dataContext;
         }
 
-       
-
         public bool InsertContact(ContactsRequest contacto)
         {
             string StoreProcedure = "InsertarContacto";
@@ -37,9 +35,9 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceClients
             {
                 { "@CON_ID", contacto.CON_ID },
                 { "@CLI_ID", contacto.CLI_ID },
-                { "@TIPCON_ID", contacto.TIPCON_ID  },
-                { "@CON_Contacto", contacto.CON_Contacto },
-                { "@CON_Estado", contacto.CON_Estado}
+                { "@TIPCON_ID", contacto.TIPCON_ID ?? (object)DBNull.Value},
+                { "@CON_Contacto", contacto.CON_Contacto ?? (object)DBNull.Value},
+                { "@CON_Estado", contacto.CON_Estado ??(object) DBNull.Value}
              };
 
             int rowsAffected = _dbContext.ExecuteNonQuerySPs(StoreProcedure, parameters);

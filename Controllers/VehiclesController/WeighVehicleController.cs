@@ -35,5 +35,27 @@ namespace BackEndSisVes.Controllers.VehiclesController
                 return BadRequest(ex.Message);
             }
         }
+        
+        
+        [HttpPut("UpdateWeighVehicle")]
+        public IActionResult UpdateWeighVehicle(WeighVehicleRequest weighVehicle)
+        {
+            try
+            {
+                bool result = orderServiceWeighsVehicle.UpdateWeighVehicle(weighVehicle);
+                if (result)
+                {
+                    return Ok(new {message="Updated successfully"});
+                }
+                else
+                {
+                    return NotFound("Error updating weight of vehicle");
+                }
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

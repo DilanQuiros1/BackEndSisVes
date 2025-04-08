@@ -44,6 +44,26 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceVehicles
             {
                 return false;
             }
+        } 
+        
+        public bool UpdateBrandWheelVehicle(BrandWheelVehiclesRequest brandWheels)
+        {
+            try
+            {
+                string procedure = "Actualizar_SisVeS_MARCAS_RUEDAS";
+                var parameters = new Dictionary<string, object>()
+                {
+                    {"@MARRUE_ID", brandWheels.MARRUE_ID},
+                    {"@MARRUE_Marca", brandWheels.MARRUE_Marca ?? (object)DBNull.Value},
+                    {"@MARRUE_Estado", brandWheels.MARRUE_Estado ?? (object)DBNull.Value}
+                };
+                int result = dataContext.ExecuteNonQuerySPs(procedure, parameters);
+                return result > 0;
+            }
+            catch(Exception)
+            {
+                return false;
+            }
         }
 
       

@@ -49,5 +49,26 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceVehicles
             }
         }
 
+        public bool UpdateTypeWheelVehicle(TypeWheelsVehicleRequest typesWheels)
+        {
+            try
+            {
+                string procedure = "Actualizar_SisVeS_TIPOS_RUEDAS";
+                var parameters = new Dictionary<string, object>()
+                {
+                    {"@TIPRUE_ID", typesWheels.TIPRUE_ID },
+                    {"@TIPRUE_Tipo", typesWheels.TIPRUE_Tipo ?? (object)DBNull.Value },
+                    {"@TIPRUE_Estado", typesWheels.TIPRUE_Estado ??(object) DBNull.Value }
+                };
+
+                int result = dataContext.ExecuteNonQuerySPs(procedure, parameters);
+                return result > 0;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
     }
 }

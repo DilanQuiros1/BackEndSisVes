@@ -64,14 +64,14 @@ namespace BackEndSisVes.BackEndSisVesBO.OrderServiceVehicles
             var parameters = new Dictionary<string, object>()
             {
                 {"@MOT_ID",engine.MOT_ID },
-                {"@MOT_Cilindros",  engine.MOT_Cilindros },
-                {"@MOT_Valvulas",engine.MOT_Valvulas },
-                {"@MOT_Cilindrada",engine.MOT_Cilindrada },
-                {"@MOT_Carrera_Cilindro",engine.MOT_Carrera_Cilindro },
-                {"@MOT_Diametro_Cilindro",engine.MOT_Diametro_Cilindro },
-                {"@MOT_Potencia_Maxima_KW_CV",engine.MOT_Potencia_Maxima_KW_CV },
-                {"@MOT_Par_maximo_Nm_rpm",engine.MOT_Par_maximo_Nm_rpm },
-                {"@MOT_Compresion",engine.MOT_Compresion }
+                {"@MOT_Cilindros",  engine.MOT_Cilindros ?? (object)DBNull.Value },
+                {"@MOT_Valvulas",engine.MOT_Valvulas ?? (object)DBNull.Value},
+                {"@MOT_Cilindrada",engine.MOT_Cilindrada ?? (object)DBNull.Value},
+                {"@MOT_Carrera_Cilindro",engine.MOT_Carrera_Cilindro ?? (object)DBNull.Value},
+                {"@MOT_Diametro_Cilindro",engine.MOT_Diametro_Cilindro ?? (object)DBNull.Value},
+                {"@MOT_Potencia_Maxima_KW_CV",engine.MOT_Potencia_Maxima_KW_CV ?? (object)DBNull.Value},
+                {"@MOT_Par_maximo_Nm_rpm",engine.MOT_Par_maximo_Nm_rpm ?? (object)DBNull.Value},
+                {"@MOT_Compresion",engine.MOT_Compresion?? (object)DBNull.Value }
             };
 
             int result = dataContext.ExecuteNonQuerySPs(procedure, parameters);
